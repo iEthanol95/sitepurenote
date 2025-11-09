@@ -88,7 +88,7 @@ interface Translation {
   email: string;
   password: string;
   signin: string;
-  signup: string;
+  createAccount: string;
   noAccount: string;
   hasAccount: string;
   signingIn: string;
@@ -293,7 +293,7 @@ const translations: Record<Language, Translation> = {
     email: "Email",
     password: "Mot de passe",
     signin: "Se connecter",
-    signup: "Créer un compte",
+    createAccount: "Créer un compte",
     noAccount: "Pas encore de compte ?",
     hasAccount: "Vous avez déjà un compte ?",
     signingIn: "Connexion en cours...",
@@ -503,7 +503,7 @@ const translations: Record<Language, Translation> = {
     email: "Email",
     password: "Password",
     signin: "Sign in",
-    signup: "Create account",
+    createAccount: "Create account",
     noAccount: "Don't have an account?",
     hasAccount: "Already have an account?",
     signingIn: "Signing in...",
