@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 import { useLanguage } from "./LanguageContext";
 import { useState, useEffect } from "react";
 import { toast } from "sonner@2.0.3";
-import emailjs from '@emailjs/browser';
 
 interface ContactPageProps {
   onBackToHome: () => void;
@@ -20,11 +19,7 @@ export function ContactPage({ onBackToHome }: ContactPageProps) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Initialize EmailJS
-  useEffect(() => {
-    emailjs.init('GW9_jH8rAx2dM-xPj');
-  }, []);
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -34,29 +29,32 @@ export function ContactPage({ onBackToHome }: ContactPageProps) {
     }
 
     setIsSubmitting(true);
-    try {
-      // Send email via EmailJS
-      await emailjs.send(
-        'service_7bvp6gd',
-        'template_7p3h2gl',
-        {
-          from_name: formData.name,
-          from_email: formData.email,
+try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          to_email: 'purenote.contact@gmail.com',
-        }
-      );
+        }),
+      });
 
-      toast.success(t.messageSaved || "Message sent successfully!");
-      
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+
+      const data = await response.json();
+      toast.success(t.messageSaved || 'Message sent successfully!');
+
       // Reset form
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      console.error("Error sending email:", error);
-      const errorMessage = error instanceof Error ? error.message : (t.emailSendError || "Failed to send message");
-      toast.error(errorMessage);
+      console.error('Error sending email:', error);
+      toast.error('Failed to send message');
     } finally {
       setIsSubmitting(false);
     }
