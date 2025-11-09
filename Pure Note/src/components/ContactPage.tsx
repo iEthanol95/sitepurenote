@@ -2,9 +2,9 @@ import { motion } from "motion/react";
 import { ArrowLeft, Mail, Send } from "lucide-react";
 import { Button } from "./ui/button";
 import { useLanguage } from "./LanguageContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner@2.0.3";
-import { projectId, publicAnonKey } from "../utils/supabase/info";
+import emailjs from '@emailjs/browser';
 
 interface ContactPageProps {
   onBackToHome: () => void;
@@ -20,6 +20,11 @@ export function ContactPage({ onBackToHome }: ContactPageProps) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init('GW9_jH8rAx2dM-xPj');
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -29,49 +34,28 @@ export function ContactPage({ onBackToHome }: ContactPageProps) {
     }
 
     setIsSubmitting(true);
-
     try {
-      console.log("Saving contact message...", formData);
-      
-      // Save contact message to database first
-      const saveResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-837fe92e/save-contact-message`,
+      // Send email via EmailJS
+      await emailjs.send(
+        'service_7bvp6gd',
+        'template_7p3h2gl',
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${publicAnonKey}`,
-          },
-          body: JSON.stringify(formData),
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: 'purenote.contact@gmail.com',
         }
       );
 
-      if (!saveResponse.ok) {
-        const errorData = await saveResponse.json();
-        throw new Error(errorData.error || "Failed to save message");
-      }
-
-      console.log("Message saved successfully!");
-      
-      // Open email client as well
-      const subject = encodeURIComponent(`[Pure Note Contact] ${formData.subject}`);
-      const body = encodeURIComponent(
-        `Nom: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      );
-      
-      // Open mailto in a new way that doesn't navigate away
-      const mailtoLink = `mailto:purenote.contact@gmail.com?subject=${subject}&body=${body}`;
-      const mailtoWindow = window.open(mailtoLink, '_blank');
-      if (mailtoWindow) mailtoWindow.close();
-      
-      toast.success(t.messageSaved || "Message saved! We'll contact you soon.");
+      toast.success(t.messageSaved || "Message sent successfully!");
       
       // Reset form
       setFormData({ name: "", email: "", subject: "", message: "" });
       
     } catch (error) {
-      console.error("Error saving message:", error);
-      const errorMessage = error instanceof Error ? error.message : (t.emailSendError || "Failed to save message");
+      console.error("Error sending email:", error);
+      const errorMessage = error instanceof Error ? error.message : (t.emailSendError || "Failed to send message");
       toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
@@ -135,7 +119,6 @@ export function ContactPage({ onBackToHome }: ContactPageProps) {
           >
             <Mail className="w-10 h-10 text-white dark:text-black" />
           </motion.div>
-
           <motion.h2
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -144,7 +127,6 @@ export function ContactPage({ onBackToHome }: ContactPageProps) {
           >
             {t.getInTouch}
           </motion.h2>
-
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
