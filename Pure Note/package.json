@@ -49,7 +49,7 @@
           "sonner": "^2.0.3",
           "stripe": "^17.4.0",
           "tailwind-merge": "*",
-          "vaul": "^1.1.2"
+          "vaul": "^1.1.2",
             "@emailjs/browser": "^4.2.0",
       },
       "devDependencies": {
