@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd Pure\ Note && npm run build",
+  "buildCommand": "cd 'Pure Note' && npm run build",
   "outputDirectory": "Pure Note/dist",
   "routes": [
     {
