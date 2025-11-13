@@ -50,7 +50,7 @@
           "stripe": "^17.4.0",
           "tailwind-merge": "*",
           "vaul": "^1.1.2",
-            "@emailjs/browser": "^4.2.0"
+            "@emailjs/browser": "^4.2.0",
             "nodemailer": "^6.9.0",
       },
       "devDependencies": {
