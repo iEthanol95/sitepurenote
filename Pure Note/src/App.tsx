@@ -13,12 +13,13 @@ import { ReviewsPage } from "./components/ReviewsPage";
 import { DonationPage } from "./components/DonationPage";
 import { NotesPage } from "./components/NotesPage";
 import { ContactPage } from "./components/ContactPage";
+import { MessageSentPage } from "./components/MessageSentPage";
 import { LoadingScreen } from "./components/LoadingScreen";
 import { LanguageProvider } from "./components/LanguageContext";
 import { SimpleAuthProvider, useSimpleAuth } from "./components/SimpleAuthContext";
 import { Toaster } from "./components/ui/sonner";
 
-type Page = "home" | "login" | "signup" | "profile" | "forgot-password" | "reset-password" | "reviews" | "donations" | "notes" | "contact";
+type Page = "home" | "login" | "signup" | "profile" | "forgot-password" | "reset-password" | "reviews" | "donations" | "notes" | "co | "message-sent"ntact";
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<Page>("home");
@@ -73,6 +74,7 @@ function AppContent() {
   const handleSwitchToSignup = () => setCurrentPage("signup");
   const handleSwitchToLogin = () => setCurrentPage("login");
   const handleResetSuccess = () => {
+      const handleShowMessageSent = () => setCurrentPage("message-sent");
     setResetToken(null);
     setCurrentPage("login");
   };
@@ -177,6 +179,10 @@ function AppContent() {
           onBackToHome={handleBackToHome}
         />
       )}
+
+          {currentPage === "message-sent" && (
+      <MessageSentPage />
+    )}
     </div>
   );
 }
