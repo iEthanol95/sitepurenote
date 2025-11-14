@@ -2,7 +2,8 @@ import { motion } from "motion/react";
 import { ArrowLeft, Mail, Send } from "lucide-react";
 import { Button } from "./ui/button";
 import { useLanguage } from "./LanguageContext";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner@2.0.3";
 
 interface ContactPageProps {
@@ -11,6 +12,7 @@ interface ContactPageProps {
 
 export function ContactPage({ onBackToHome }: ContactPageProps) {
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,17 +21,17 @@ export function ContactPage({ onBackToHome }: ContactPageProps) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
       toast.error(t.fillAllFields || "Please fill all fields");
       return;
     }
 
     setIsSubmitting(true);
-try {
+
+    try {
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
@@ -49,6 +51,15 @@ try {
 
       const data = await response.json();
       toast.success(t.messageSaved || 'Message sent successfully!');
+
+      // Rediriger vers la page de confirmation avec les paramètres
+      const params = new URLSearchParams({
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      });
+      navigate(`/message-sent?${params.toString()}`);
 
       // Reset form
       setFormData({ name: '', email: '', subject: '', message: '' });
