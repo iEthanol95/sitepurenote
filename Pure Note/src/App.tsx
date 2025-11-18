@@ -19,7 +19,7 @@ import { LanguageProvider } from "./components/LanguageContext";
 import { SimpleAuthProvider, useSimpleAuth } from "./components/SimpleAuthContext";
 import { Toaster } from "./components/ui/sonner";
 
-type Page = "home" | "login" | "signup" | "profile" | "forgot-password" | "reset-password" | "reviews" | "donations" | "notes" | "co | "message-sent"ntact";
+type Page = "home" | "login" | "signup" | "profile" | "forgot-password" | "reset-password" | "reviews" | "donations" | "notes" | "co | ""message-sent" | "contact";
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<Page>("home");
