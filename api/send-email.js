@@ -3,11 +3,8 @@ import nodemailer from 'nodemailer';
 // Check if environment variables are configured
 const isDev = !process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD;
 
-if (isDev) {
-  console.warn('Email service not configured. Messages will be logged only.');
-}
 
-if (isDev) return res.status(200).json({ message: 'Message received! (Development mode)' });
+
 
 
 
@@ -20,6 +17,8 @@ const transporter = nodemailer.createTransport({
 });
 
 export default async function handler(req, res) {
+    if (isDev) return res.status(200).json({ message: 'Message received! (Development mode)' });
+
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
