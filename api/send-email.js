@@ -7,7 +7,7 @@ if (isDev) {
   console.warn('Email service not configured. Messages will be logged only.');
 }
 
-if (isDev) return res.status(200).json({ message: 'Message reçu! (Mode développement)' });
+if (isDev) return res.status(200).json({ message: 'Message received! (Development mode)' });
 
 
 
