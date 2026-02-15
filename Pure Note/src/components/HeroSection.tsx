@@ -11,12 +11,11 @@ export function HeroSection({ onDemoClick }: HeroSectionProps) {
   const { t } = useLanguage();
 
   // ✅ Nouvelle fonction : ouvre directement ton lien Mega sans erreur
-const handleDownload = () => {
-  const fileUrl =
-    "https://github.com/iEthanol95/sitepurenote/raw/main/Pure%20Note/Pure%20Note_Setup_1.0.0.exe";
-  window.open(fileUrl, "_blank", "noopener,noreferrer");
-};
-
+  const handleDownload = () => {
+    const fileUrl =
+      "https://mega.nz/file/XRVzDTrR#XCD5F2B_T1e_khXT8319gXgmBb1uj-hABsVibuOBrYA";
+    window.open(fileUrl, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-white to-white dark:from-black dark:to-black">
