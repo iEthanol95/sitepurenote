@@ -1,5 +1,5 @@
 {
-  // Rebuild trigger - Nov 29
+  "version": 2,
   "routes": [
     {
       "src": "/api/(.*)",
