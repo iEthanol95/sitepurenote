@@ -13,7 +13,7 @@ export function HeroSection({ onDemoClick }: HeroSectionProps) {
   // ✅ Nouvelle fonction : ouvre directement ton lien Mega sans erreur
   const handleDownload = () => {
     const fileUrl =
-      "https://mega.nz/file/XRVzDTrR#XCD5F2B_T1e_khXT8319gXgmBb1uj-hABsVibuOBrYA";
+      "https://gofile.io/d/G7h6MA";
     window.open(fileUrl, "_blank", "noopener,noreferrer");
   };
 
