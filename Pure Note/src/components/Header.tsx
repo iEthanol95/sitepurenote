@@ -186,27 +186,6 @@ export function Header({
               transition={{ duration: 0.3 }}
             />
           </motion.button>
-          <motion.button
-            onClick={onShowContact}
-            whileHover={{
-              y: -2,
-              color: theme === "dark" ? "#fff" : "#000",
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 10,
-            }}
-            className="text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors relative"
-          >
-            {t.contact}
-            <motion.div
-              className="absolute bottom-0 left-0 right-0 h-0.5 bg-black dark:bg-white origin-left"
-              initial={{ scaleX: 0 }}
-              whileHover={{ scaleX: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.button>
         </motion.nav>
 
         <motion.div
