@@ -10,11 +10,11 @@ interface HeroSectionProps {
 export function HeroSection({ onDemoClick }: HeroSectionProps) {
   const { t } = useLanguage();
 
-const handleDownload = () => {
-  const fileUrl =
-    "https://github.com/iEthanol95/sitepurenote/raw/refs/heads/main/Pure%20Note/Pure_Note_Setup_1.0.0.exe";
-  window.open(fileUrl, "_blank", "noopener,noreferrer");
-};
+  const handleDownload = () => {
+    const fileUrl =
+      "https://github.com/iEthanol95/sitepurenote/raw/refs/heads/main/Pure%20Note/Pure Note_Setup_1.0.1.exe";
+    window.open(fileUrl, "_blank", "noopener,noreferrer");
+  };
 
 
   return (
