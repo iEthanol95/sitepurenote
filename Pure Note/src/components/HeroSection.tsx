@@ -12,7 +12,7 @@ export function HeroSection({ onDemoClick }: HeroSectionProps) {
 
   const handleDownload = () => {
     const fileUrl =
-      "https://github.com/iEthanol95/sitepurenote/raw/refs/heads/main/Pure%20Note/Pure-Note_Setup_1.0.2.exes";
+      "https://github.com/iEthanol95/sitepurenote/raw/refs/heads/main/Pure%20Note/Pure-Note_Setup_1.0.2.exe";
     window.open(fileUrl, "_blank", "noopener,noreferrer");
   };
 
